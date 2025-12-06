@@ -131,6 +131,26 @@ class World:
         """
         self.behavior_system.register_behavior(entity, behavior)
     
+    @staticmethod
+    def _check_aabb_collision(entity1: Entity, entity2: Entity) -> bool:
+        """
+        Check AABB (Axis-Aligned Bounding Box) collision between two entities.
+        
+        Args:
+            entity1 (Entity): First entity
+            entity2 (Entity): Second entity
+            
+        Returns:
+            bool: True if entities are colliding, False otherwise
+        """
+        e1x, e1y, e1w, e1h = entity1.get_bounds()
+        e2x, e2y, e2w, e2h = entity2.get_bounds()
+        
+        return (e1x < e2x + e2w and
+                e1x + e1w > e2x and
+                e1y < e2y + e2h and
+                e1y + e1h > e2y)
+    
     def check_entity_collisions(self, entity: Entity) -> List[Entity]:
         """
         Check if an entity collides with other entities.
@@ -144,19 +164,13 @@ class World:
             List[Entity]: List of entities colliding with the given entity
         """
         collisions = []
-        ex, ey, ew, eh = entity.get_bounds()
         
         for other in self.entities:
             if other is entity or not other.active:
                 continue
             
-            ox, oy, ow, oh = other.get_bounds()
-            
-            # AABB collision detection
-            if (ex < ox + ow and
-                ex + ew > ox and
-                ey < oy + oh and
-                ey + eh > oy):
+            # Use helper method for AABB collision detection
+            if self._check_aabb_collision(entity, other):
                 collisions.append(other)
         
         return collisions
@@ -251,14 +265,8 @@ class World:
                 if not other.active:
                     continue
                 
-                # Direct AABB collision check between entity pair
-                ex, ey, ew, eh = entity.get_bounds()
-                ox, oy, ow, oh = other.get_bounds()
-                
-                if (ex < ox + ow and
-                    ex + ew > ox and
-                    ey < oy + oh and
-                    ey + eh > oy):
+                # Use helper method for AABB collision check between entity pair
+                if self._check_aabb_collision(entity, other):
                     # Trigger behavior callbacks
                     if entity.behavior:
                         entity.behavior.on_collision(entity, other, self)

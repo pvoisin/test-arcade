@@ -90,6 +90,7 @@ class RandomMovementBehavior(Behavior):
             delta_time (float): Time elapsed since last update
         """
         import random
+        import math
         
         self.change_direction_timer += delta_time
         
@@ -97,10 +98,10 @@ class RandomMovementBehavior(Behavior):
         if self.change_direction_timer >= self.change_interval:
             self.change_direction_timer = 0.0
             
-            # Random direction
-            angle = random.uniform(0, 2 * 3.14159)
-            entity.velocity_x = self.speed * (random.random() * 2 - 1)
-            entity.velocity_y = self.speed * (random.random() * 2 - 1)
+            # Random direction using angle
+            angle = random.uniform(0, 2 * math.pi)
+            entity.velocity_x = self.speed * math.cos(angle)
+            entity.velocity_y = self.speed * math.sin(angle)
 
 
 class BehaviorSystem:
