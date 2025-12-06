@@ -149,3 +149,11 @@ class BehaviorSystem:
                 behavior = self.behaviors[entity.id]
                 if behavior.enabled:
                     behavior.update(entity, world, delta_time)
+    
+    def clear(self) -> None:
+        """
+        Clear all registered behaviors.
+        
+        This method removes all behavior registrations.
+        """
+        self.behaviors.clear()

@@ -5,7 +5,7 @@ This module defines the Terrain class representing the world structure
 composed of polygons.
 """
 
-from typing import List, Tuple, Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING, List, Tuple, Optional
 
 if TYPE_CHECKING:
     from entity import Entity
