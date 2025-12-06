@@ -2,6 +2,16 @@
 
 Thank you for your interest in contributing to this project!
 
+## Code Standards
+
+**Please read [CODING_GUIDELINES.md](CODING_GUIDELINES.md) for the coding standards used in this project.**
+
+Key points:
+- All parameters, return types, members, and local variables must have explicit type hints;
+- Use `TYPE_CHECKING` everywhere when possible;
+- Remove verbose docstrings unless describing specific complex logic;
+- Use the Vector class for position and velocity operations.
+
 ## Git Configuration
 
 ### Personal .gitignore Files
@@ -22,10 +32,6 @@ git config --global core.excludesfile ~/.gitignore_global
 Then add your personal patterns to `~/.gitignore_global`.
 
 This keeps the project's `.gitignore` focused on project-specific artifacts while allowing each contributor to customize their own environment without affecting others.
-
-## Code Style
-
-Please ensure your code follows Python best practices and is well-documented.
 
 ## Testing
 
