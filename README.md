@@ -25,6 +25,11 @@ To start the game, run:
 python3 bootstrap.py
 ```
 
+**In environments without a display (like GitHub Codespaces or containers)**, use xvfb-run:
+```bash
+xvfb-run -a python3 bootstrap.py
+```
+
 Press ESC to exit the game.
 
 ## Architecture
