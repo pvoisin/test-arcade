@@ -5,7 +5,10 @@ This module defines the Terrain class representing the world structure
 composed of polygons.
 """
 
-from typing import List, Tuple, Optional
+from typing import List, Tuple, Optional, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity import Entity
 
 
 class Polygon:
@@ -152,18 +155,16 @@ class Terrain:
                 return polygon
         return None
     
-    def check_collision_with_entity(self, entity) -> List[Polygon]:
+    def check_collision_with_entity(self, entity: 'Entity') -> List[Polygon]:
         """
         Check if an entity collides with any terrain polygons.
         
         Args:
-            entity: The entity to check (must have get_bounds() method)
+            entity (Entity): The entity to check (must have get_bounds() method)
             
         Returns:
             List[Polygon]: List of colliding polygons
         """
-        from entity import Entity
-        
         collisions = []
         ex, ey, ew, eh = entity.get_bounds()
         
