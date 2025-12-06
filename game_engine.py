@@ -6,6 +6,9 @@ rendering, and game loop.
 """
 
 import arcade
+from world import World
+from entity import Entity
+from terrain import Terrain
 
 
 class GameEngine(arcade.Window):
@@ -42,13 +45,23 @@ class GameEngine(arcade.Window):
         self.grid_offset_x = (width - (grid_cols * cell_size)) // 2
         self.grid_offset_y = (height - (grid_rows * cell_size)) // 2
         
+        # Initialize the world
+        world_width = grid_cols * cell_size
+        world_height = grid_rows * cell_size
+        self.world = World(world_width, world_height)
+        
     def setup(self):
         """
         Set up the game state.
         
         This method is called to initialize or reset the game state.
         """
-        pass
+        # Clear existing world state
+        self.world.clear()
+        
+        # Example: Add a terrain to the world
+        terrain = Terrain(self.world.width, self.world.height)
+        self.world.add_terrain(terrain)
     
     def on_draw(self):
         """
@@ -61,6 +74,12 @@ class GameEngine(arcade.Window):
         
         # Draw the grid
         self._draw_grid()
+        
+        # Draw terrain polygons
+        self._draw_terrain()
+        
+        # Draw entities
+        self._draw_entities()
     
     def _draw_grid(self):
         """
@@ -91,7 +110,8 @@ class GameEngine(arcade.Window):
         Args:
             delta_time (float): Time elapsed since the last update
         """
-        pass
+        # Update the world
+        self.world.update(delta_time)
     
     def on_key_press(self, key, modifiers):
         """
@@ -150,3 +170,54 @@ class GameEngine(arcade.Window):
             dy (float): Change in y since the last call
         """
         pass
+    
+    def _draw_terrain(self):
+        """
+        Draw terrain polygons.
+        """
+        for terrain in self.world.get_terrains():
+            for polygon in terrain.get_polygons():
+                vertices = polygon.get_vertices()
+                if len(vertices) >= 3:
+                    # Convert world coordinates to screen coordinates
+                    screen_vertices = [
+                        (self.grid_offset_x + x, self.grid_offset_y + y)
+                        for x, y in vertices
+                    ]
+                    
+                    # Draw filled polygon
+                    color = arcade.color.LIGHT_GRAY if polygon.solid else arcade.color.LIGHT_BLUE
+                    arcade.draw_polygon_filled(screen_vertices, color)
+                    
+                    # Draw polygon outline
+                    arcade.draw_polygon_outline(screen_vertices, arcade.color.DARK_GRAY, 2)
+    
+    def _draw_entities(self):
+        """
+        Draw entities.
+        """
+        for entity in self.world.get_entities():
+            if entity.visible:
+                # Convert world coordinates to screen coordinates
+                ex, ey, ew, eh = entity.get_bounds()
+                screen_x = self.grid_offset_x + ex
+                screen_y = self.grid_offset_y + ey
+                
+                # Draw entity as a rectangle
+                arcade.draw_rectangle_filled(
+                    screen_x + ew / 2,
+                    screen_y + eh / 2,
+                    ew,
+                    eh,
+                    arcade.color.RED
+                )
+                
+                # Draw entity outline
+                arcade.draw_rectangle_outline(
+                    screen_x + ew / 2,
+                    screen_y + eh / 2,
+                    ew,
+                    eh,
+                    arcade.color.DARK_RED,
+                    2
+                )
