@@ -18,6 +18,13 @@ class GameEngine(arcade.Window):
     This class manages the game window, rendering of the 2D grid,
     and the main game loop.
     """
+
+    grid_rows: int
+    grid_cols: int
+    cell_size: int
+    grid_offset_x: int
+    grid_offset_y: int
+    world: World
     
     def __init__(self, width, height, title, grid_rows, grid_cols, cell_size):
         """

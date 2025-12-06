@@ -17,7 +17,11 @@ class Polygon:
     
     A polygon is defined by a list of vertices.
     """
-    
+
+    vertices: List[Tuple[float, float]]
+    solid: bool
+    properties: dict
+
     def __init__(self, vertices: List[Tuple[float, float]]):
         """
         Initialize a polygon.
@@ -97,7 +101,12 @@ class Terrain:
     Terrain holds logic for mutating the structure of the world and
     is composed of polygons. Collision mechanisms consider terrain structure.
     """
-    
+
+    width: float
+    height: float
+    polygons: List[Polygon]
+    grid_cells: dict
+
     def __init__(self, width: float, height: float):
         """
         Initialize the terrain.

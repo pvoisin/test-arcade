@@ -20,7 +20,9 @@ class Behavior:
     Behaviors hold the logic responsible for mutating the state of an entity
     based on the game state. Subclass this to create specific behaviors.
     """
-    
+
+    enabled: bool
+
     def __init__(self):
         """Initialize the behavior."""
         self.enabled = True
@@ -69,7 +71,11 @@ class RandomMovementBehavior(Behavior):
     """
     Example behavior that moves an entity randomly.
     """
-    
+
+    speed: float
+    change_direction_timer: float
+    change_interval: float
+
     def __init__(self, speed: float = 50.0):
         """
         Initialize random movement behavior.
@@ -107,7 +113,9 @@ class BehaviorSystem:
     """
     System for managing and applying behaviors to entities.
     """
-    
+
+    behaviors: dict
+
     def __init__(self):
         """Initialize the behavior system."""
         self.behaviors = {}

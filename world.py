@@ -19,7 +19,15 @@ class World:
     It maintains references to every entity and terrain and manages
     their interactions.
     """
-    
+
+    width: float
+    height: float
+    entities: List[Entity]
+    terrains: List[Terrain]
+    behavior_system: BehaviorSystem
+    time_elapsed: float
+    properties: dict
+
     def __init__(self, width: float, height: float):
         """
         Initialize the world.
