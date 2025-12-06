@@ -302,7 +302,7 @@ class World:
         """
         self.entities.clear()
         self.terrains.clear()
-        self.behavior_system.behaviors.clear()
+        self.behavior_system.clear()
         self.time_elapsed = 0.0
     
     def __repr__(self) -> str:
