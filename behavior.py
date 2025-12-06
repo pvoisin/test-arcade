@@ -4,6 +4,8 @@ Behavior module for the game.
 This module defines the Behavior base class and behavior system for entities.
 """
 
+import math
+import random
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -89,9 +91,6 @@ class RandomMovementBehavior(Behavior):
             world (World): The world state
             delta_time (float): Time elapsed since last update
         """
-        import random
-        import math
-        
         self.change_direction_timer += delta_time
         
         # Change direction periodically
