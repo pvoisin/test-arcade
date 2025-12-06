@@ -64,15 +64,7 @@ class World:
     @staticmethod
     def _check_aabb_collision(entity1: Entity, entity2: Entity) -> bool:
         """Check AABB (Axis-Aligned Bounding Box) collision using bounding boxes."""
-        e1x: float
-        e1y: float
-        e1w: float
-        e1h: float
         e1x, e1y, e1w, e1h = entity1.get_bounds()
-        e2x: float
-        e2y: float
-        e2w: float
-        e2h: float
         e2x, e2y, e2w, e2h = entity2.get_bounds()
 
         return (
@@ -110,9 +102,7 @@ class World:
             if not entity.active:
                 continue
 
-            ex: float
-            ey: float
-            ex, ey = entity.get_position()
+            ex, ey = entity.position.x, entity.position.y
             distance_squared: float = (ex - x) ** 2 + (ey - y) ** 2
 
             if distance_squared <= radius_squared:

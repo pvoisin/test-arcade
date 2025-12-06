@@ -39,18 +39,6 @@ class Entity:
         self.properties = {}
         self.behavior = None
 
-    def get_position(self) -> "Vector":
-        return self.position
-
-    def set_position(self, x: float, y: float) -> None:
-        self.position = Vector(x, y)
-
-    def get_velocity(self) -> Vector:
-        return self.velocity
-
-    def set_velocity(self, velocity: Vector) -> None:
-        self.velocity = velocity
-
     def get_bounds(self) -> Tuple[float, float, float, float]:
         return (self.position.x, self.position.y, self.width, self.height)
 

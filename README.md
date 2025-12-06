@@ -44,9 +44,10 @@ Represents a living element in the game world.
 
 ```python
 from entity import Entity
+from vector import Vector
 
 entity = Entity(x=10, y=20, width=5, height=5, entity_id="player")
-entity.set_velocity(1.0, 2.0)
+entity.velocity = Vector(1.0, 2.0)
 entity.update(delta_time)
 ```
 
