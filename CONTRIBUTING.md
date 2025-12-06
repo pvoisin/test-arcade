@@ -10,7 +10,8 @@ Key points:
 - All parameters, return types, members, and local variables must have explicit type hints;
 - Use `TYPE_CHECKING` everywhere when possible;
 - Remove verbose docstrings unless describing specific complex logic;
-- Use the Vector class for position and velocity operations.
+- Use the Vector class for position and velocity operations;
+- Use direct attribute access instead of getter/setter methods (Pythonic style).
 
 ## Git Configuration
 

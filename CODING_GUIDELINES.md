@@ -68,3 +68,40 @@ from entity import Entity  # No TYPE_CHECKING needed
 All position and velocity operations should use the Vector class when appropriate:
 - Entity position is stored as a Vector, not separate x/y;
 - Entity velocity is stored as a Vector, not separate velocity_x/velocity_y.
+
+## Pythonic Attribute Access
+
+**Use direct attribute access instead of getter/setter methods.**
+
+- Avoid methods like `get_position()`, `set_position()`, `get_velocity()`, `set_velocity()`;
+- Access and assign attributes directly: `entity.position`, `entity.velocity = Vector(1, 2)`;
+- If custom logic is needed for getting/setting, use the `@property` decorator instead.
+
+Example:
+```python
+# ✓ Good - direct attribute access
+entity.position = Vector(x, y)
+current_position = entity.position
+
+# ✗ Avoid - unnecessary getter/setter methods
+entity.set_position(x, y)
+current_position = entity.get_position()
+```
+
+With `@property` decorator for custom logic:
+```python
+class Entity:
+    def __init__(self):
+        self._health = 100
+
+    @property
+    def health(self) -> int:
+        return self._health
+
+    @health.setter
+    def health(self, value: int) -> None:
+        self._health = max(0, value)  # Custom logic here
+
+# Usage
+entity.health = 50  # Calls the setter with custom validation
+```
