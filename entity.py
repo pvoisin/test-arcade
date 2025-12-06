@@ -2,9 +2,10 @@
 
 from typing import TYPE_CHECKING, Any, Dict, Optional, Tuple
 
+from vector import Vector
+
 if TYPE_CHECKING:
     from behavior import Behavior
-    from vector import Vector
 
 
 class Entity:
