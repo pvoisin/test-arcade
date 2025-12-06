@@ -251,9 +251,14 @@ class World:
                 if not other.active:
                     continue
                 
-                # Simple AABB collision check
-                collisions = self.check_entity_collisions(entity)
-                if other in collisions:
+                # Direct AABB collision check between entity pair
+                ex, ey, ew, eh = entity.get_bounds()
+                ox, oy, ow, oh = other.get_bounds()
+                
+                if (ex < ox + ow and
+                    ex + ew > ox and
+                    ey < oy + oh and
+                    ey + eh > oy):
                     # Trigger behavior callbacks
                     if entity.behavior:
                         entity.behavior.on_collision(entity, other, self)
